@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { Play } from "@next/font/google";
-import Form from "../../components/ressources/formAdd";
 import { queryBuilder } from "@/lib/planetscale";
+import Form from "./form";
 import Link from "next/link";
 
 const play = Play({
