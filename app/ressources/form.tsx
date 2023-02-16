@@ -1,47 +1,16 @@
 "use client";
 
-import clsx from "clsx";
-import { Play } from "@next/font/google";
-import { useState } from "react";
-import Form from "./form";
-import FormSearch from "./formSearch";
+import FormAdd from "@/components/ressources/formAdd";
+import FormSearch from "@/components/ressources/formSearch";
 import Tags from "@/components/tags";
-import { queryBuilder } from "@/lib/planetscale";
+import { useState } from "react";
 
-const play = Play({
-  subsets: ["latin"],
-  weight: "700",
-  display: "swap",
-});
-
-export const metadata = {
-  title: "Technos",
-  description:
-    "Gathering in one place of useful links and articles for javascript development",
-};
-
-export default function Page({}) {
+export default function Form() {
   const [isSearch, setIsSearch] = useState<boolean>(false);
   const [isFilter, setIsFilter] = useState<boolean>(false);
   const [isAdd, setIsAdd] = useState<boolean>(false);
-
   return (
     <>
-      <div className=" mb-8">
-        <h1
-          className={clsx(
-            "w-full text-start lg:text-start text-4xl lg:text-5xl font-medium",
-            play.className
-          )}
-        >
-          Techno
-        </h1>
-      </div>
-      <p className="font-paragraph text-sm my-8 md:max-w-lg md:text-lg lg:text-lg">
-        Gathering in one place of{" "}
-        <span className="font-semibold">useful links and articles</span> for
-        javascript development
-      </p>
       <div className="flex justify-between items-center gap-2">
         <div className="flex gap-2">
           <div
@@ -80,7 +49,7 @@ export default function Page({}) {
       {/* TODO: Mettre un frame motion sur le form */}
       {isSearch && <FormSearch />}
       {isFilter && <Tags />}
-      {isAdd && <Form />}
+      {isAdd && <FormAdd />}
     </>
   );
 }

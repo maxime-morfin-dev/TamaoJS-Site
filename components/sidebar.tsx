@@ -17,8 +17,8 @@ const navigationItems = {
     y: 65,
     w: "50px",
   },
-  "/techno": {
-    label: "Techno",
+  "/ressources": {
+    label: "Ressources",
     x: 132,
     y: 99,
     w: "69px",
