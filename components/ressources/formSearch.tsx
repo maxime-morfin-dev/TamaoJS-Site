@@ -19,7 +19,7 @@ export default function FormSearch() {
         aria-label="Type a word or sentence"
         placeholder="Type a word or sentence"
         name="search"
-        className="mt-8 py-1 pl-3 w-3/4 h-8 rounded-sm text-sm"
+        className="mt-8 py-1 pl-3 w-full h-8 rounded-sm text-sm"
       />
       <button className="bg-slate-500 bg-opacity-30 hover:bg-opacity-50 dark:bg-slate-100 dark:bg-opacity-30 hover:dark:bg-opacity-50 h-8 w-8 mt-8 flex justify-center items-center rounded-sm">
         <SearchIcon color={`${isDarkMode ? "white" : "rgb(100 116 139)"}`} />
