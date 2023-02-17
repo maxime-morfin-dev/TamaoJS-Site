@@ -5,9 +5,35 @@ import { useState } from "react";
 
 export default function CheckRessource({ entry }) {
   const [isCheck, setIsCheck] = useState(
-    // check if entry is already in cookie
-    typeof document !== "undefined" && document.cookie.includes(entry.id)
+    document.cookie.includes(entry.id) ? true : false
   );
+  const handleCookies = () => {
+    setIsCheck(!isCheck);
+    const cookieToSet = { id: entry.id, isCheck };
+
+    //create an array in cookie with name "ressources" if not exist
+    if (!document.cookie.includes("ressources")) {
+      document.cookie = `ressources=[${JSON.stringify(cookieToSet)}]`;
+    } else {
+      //get the array in cookie
+      const cookie = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("ressources"))
+        .split("=")[1];
+      const cookieArray = JSON.parse(cookie);
+      //check if the entry is already in the array
+      const isAlreadyIn = cookieArray.find((e) => e.id === entry.id);
+      //if not, add it
+      if (!isAlreadyIn) {
+        cookieArray.push(cookieToSet);
+        document.cookie = `ressources=${JSON.stringify(cookieArray)}`;
+      } else {
+        //if yes, remove it
+        const newCookieArray = cookieArray.filter((e) => e.id !== entry.id);
+        document.cookie = `ressources=${JSON.stringify(newCookieArray)}`;
+      }
+    }
+  };
   return (
     <div
       className={clsx(
@@ -16,15 +42,8 @@ export default function CheckRessource({ entry }) {
           "bg-green-500": isCheck,
         }
       )}
-      onClick={() => {
-        setIsCheck(!isCheck);
-        const isRead = document.cookie.includes(entry.id);
-        if (isRead) {
-          document.cookie = `${entry.id}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-        } else {
-          document.cookie = `${entry.id}=true; path=/;`;
-        }
-      }}
+      //add to an array in cookie
+      onClick={handleCookies}
     />
   );
 }

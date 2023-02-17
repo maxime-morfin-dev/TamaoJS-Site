@@ -78,9 +78,11 @@ export default async function Page() {
             <Link
               href={entry.link}
               target="_blank"
-              className="underline text-sm italic text-blue-400"
+              className="underline text-sm italic text-blue-400 "
             >
-              {entry.link}
+              {entry.link.length > 50
+                ? entry.link.substring(0, 50) + "..."
+                : entry.link}
             </Link>
           </div>
         ))}
