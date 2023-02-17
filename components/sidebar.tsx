@@ -23,8 +23,8 @@ const navigationItems = {
     y: 99,
     w: "100px",
   },
-  "/teaching": {
-    label: "Teaching",
+  "/shortcuts": {
+    label: "Shortcuts",
     x: 240,
     y: 132,
     w: "83px",

@@ -3,6 +3,7 @@ import { Play } from "@next/font/google";
 import { queryBuilder } from "@/lib/planetscale";
 import Form from "./form";
 import Link from "next/link";
+import CheckRessource from "@/components/ressources/checkRessource";
 
 const play = Play({
   subsets: ["latin"],
@@ -60,8 +61,19 @@ export default async function Page() {
             key={entry.id}
             className="relative border-[1px] border-white border-opacity-30 rounded-sm px-4 py-2 mb-4 bg-white bg-opacity-10"
           >
-            <div className="flex items-center gap-2 before:rounded-full before:w-2 before:h-2 before:bg-white">
+            <CheckRessource entry={entry} />
+            <div className="flex items-center  before:rounded-full ">
               {entry.description}
+            </div>
+            <div className="mt-2">
+              {entry.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-block bg-white bg-opacity-10 rounded-sm px-2 py-1 text-xs mr-2 mb-2"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
             <Link
               href={entry.link}
