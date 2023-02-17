@@ -13,6 +13,7 @@ export default async function handler(
         .values({
           link: req.body.link,
           description: req.body.description,
+          tags: req.body.tags,
         })
         .execute();
     } catch (error) {

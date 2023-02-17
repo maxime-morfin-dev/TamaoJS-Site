@@ -19,7 +19,7 @@ export const metadata = {
 async function getRessources() {
   const data = await queryBuilder
     .selectFrom("ressources")
-    .select(["id", "link", "description"])
+    .select(["id", "link", "description", "tags"])
     .orderBy("id", "desc")
     .limit(100)
     .execute();
@@ -35,12 +35,6 @@ export default async function Page() {
   } catch (error) {
     console.error(error);
   }
-
-  // if (ressouresRes.status === "fulfilled" && ressouresRes.value[0]) {
-  //   entries = ressouresRes.value;
-  // } else {
-  //   console.error(ressouresRes);
-  // }
 
   return (
     <>
@@ -62,7 +56,10 @@ export default async function Page() {
       <Form />
       <div className="mt-8">
         {entries.map((entry) => (
-          <div key={entry.id} className="relative">
+          <div
+            key={entry.id}
+            className="relative border-[1px] border-white border-opacity-30 rounded-sm px-4 py-2 mb-4 bg-white bg-opacity-20"
+          >
             <div className="flex items-center gap-2 before:rounded-full before:w-2 before:h-2 before:bg-white">
               {entry.description}
             </div>
@@ -73,7 +70,6 @@ export default async function Page() {
             >
               {entry.link}
             </Link>
-            <hr className="mt-2 mb-4 opacity-30 rounded-sm" />
           </div>
         ))}
       </div>

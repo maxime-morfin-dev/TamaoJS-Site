@@ -6,6 +6,7 @@ interface Ressources {
   id: Generated<number>;
   link: string;
   description: string;
+  tags: string[];
 }
 
 interface Database {

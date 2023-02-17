@@ -4,14 +4,90 @@ import { AddIcon } from "@/components/icons";
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+
+const options = [
+  { value: "react", label: "React" },
+  { value: "vuejs", label: "VueJs" },
+  { value: "nodejs", label: "NodeJs" },
+  { value: "funny", label: "Funny" },
+  { value: "blockchaine", label: "Blockchaine" },
+  { value: "mlearning", label: "M.Learing" },
+];
+
+const colorStyles = {
+  control: (styles: any) => ({
+    ...styles,
+    backgroundColor: "black",
+    color: "white",
+    borderColor: "gray",
+    boxShadow: "none",
+    "&:hover": {
+      borderColor: "gray",
+    },
+    borderRadius: "2px",
+  }),
+
+  menu: (styles: any) => ({
+    ...styles,
+    backgroundColor: "black",
+  }),
+  option: (styles: any, { data, isDisabled, isFocused, isSelected }: any) => {
+    return {
+      ...styles,
+      backgroundColor: isDisabled
+        ? null
+        : isSelected
+        ? "white"
+        : isFocused
+        ? "gray"
+        : null,
+      borderRadius: "2px",
+      color: isDisabled
+        ? "#ccc"
+        : isSelected
+        ? "white"
+        : isFocused
+        ? "white"
+        : "white",
+      cursor: isDisabled ? "not-allowed" : "default",
+    };
+  },
+  multiValue: (styles: any, { data }: any) => {
+    const color = "gray";
+    return {
+      ...styles,
+      backgroundColor: color,
+      borderRadius: "2px",
+    };
+  },
+  multiValueLabel: (styles: any, { data }: any) => ({
+    ...styles,
+    color: "white",
+  }),
+  multiValueRemove: (styles: any, { data }: any) => ({
+    ...styles,
+    color: "white",
+    ":hover": {
+      backgroundColor: "white",
+      color: "gray",
+    },
+  }),
+};
+
+const animatedComponents = makeAnimated();
 
 export default function Form() {
   const router = useRouter();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [isDescription, setIsDescription] = useState(false);
+  const [isTag, setIsTag] = useState(false);
   const [isSend, setIsSend] = useState(false);
   const [value, setValue] = useState("");
+  const [valueTextArea, setValueTextArea] = useState("");
+  const [valueSelect, setValueSelect] = useState([]);
   const [errorInput, setErrorInput] = useState(false);
   const [errorTextarea, setErrorTextarea] = useState(false);
   const [isPending, startTranstion] = useTransition();
@@ -24,25 +100,25 @@ export default function Form() {
     setIsDarkMode(checkDarkMode);
   }, []);
 
+  const handleChange = (selectedOption: any) => {
+    setValueSelect(selectedOption);
+  };
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     const form = e.currentTarget;
     const input = form.elements.namedItem("search") as HTMLInputElement;
     const textarea = form.elements.namedItem(
       "description"
     ) as HTMLTextAreaElement;
-
-    if (textarea.value === "") {
-      setErrorTextarea(true);
-      return;
-    }
+    const tags = valueSelect.map((item: any) => item.label);
 
     setIsFetching(true);
     const res = await fetch("/api/ressources", {
       body: JSON.stringify({
         link: input.value,
         description: textarea.value,
+        tags: JSON.stringify(tags),
       }),
       headers: {
         "content-type": "application/json",
@@ -52,10 +128,12 @@ export default function Form() {
 
     input.value = "";
     textarea.value = "";
+    setValueSelect([]);
 
     if (res.status === 200) {
       setIsFetching(false);
       setIsDescription(false);
+      setIsTag(false);
       setIsSend(true);
       startTranstion(() => {
         router.refresh();
@@ -87,7 +165,10 @@ export default function Form() {
           onFocus={() => setIsSend(false)}
         />
         <div
-          className="bg-slate-500 bg-opacity-30 hover:bg-opacity-50 dark:bg-slate-100 dark:bg-opacity-30 hover:dark:bg-opacity-50 h-8 w-8 mt-8 flex justify-center items-center rounded-sm"
+          className={clsx(
+            "bg-slate-500 bg-opacity-30 hover:bg-opacity-50 dark:bg-slate-100 dark:bg-opacity-30 hover:dark:bg-opacity-50 h-8 w-8 mt-8 flex justify-center items-center rounded-sm",
+            { "hover:cursor-not-allowed": isDescription }
+          )}
           onClick={() => {
             if (value || value !== "") {
               setIsDescription(true);
@@ -111,7 +192,11 @@ export default function Form() {
         </div>
       )}
       {isDescription && (
-        <div className="w-full ">
+        <div
+          className={clsx("w-full", {
+            "opacity-30": isTag,
+          })}
+        >
           <textarea
             aria-label="Enter description"
             placeholder="Enter a description for this ressource"
@@ -120,20 +205,52 @@ export default function Form() {
             className={clsx("mt-8 py-1 pl-3 w-full h-auto rounded-sm text-sm", {
               "border-red-500 border-2": errorTextarea,
             })}
-            disabled={isPending}
+            onChange={(e) => setValueTextArea(e.target.value)}
+            disabled={isTag}
           />
           {errorTextarea && (
             <p className="text-red-500 text-xs my-1 italic">
               * You must add a description !
             </p>
           )}
+          <div
+            className={clsx(
+              "bg-slate-500 bg-opacity-30 hover:bg-opacity-50 dark:bg-slate-100 dark:bg-opacity-30 hover:dark:bg-opacity-50 h-8 w-full mt-1 flex justify-center items-center rounded-sm",
+              { "hover:cursor-not-allowed opacity-30": isTag }
+            )}
+            onClick={() => {
+              if (valueTextArea || valueTextArea !== "") {
+                setIsTag(true);
+                setErrorTextarea(false);
+              } else {
+                setErrorTextarea(true);
+              }
+            }}
+          >
+            next {""}
+          </div>
+        </div>
+      )}
+      {isTag && (
+        <>
+          <div className="w-full my-4">
+            <Select
+              options={options}
+              isMulti
+              styles={colorStyles}
+              components={animatedComponents}
+              onChange={handleChange}
+              isDisabled={isPending}
+            />
+          </div>
           <button
+            type="submit"
             className="bg-slate-500 bg-opacity-30 hover:bg-opacity-50 dark:bg-slate-100 dark:bg-opacity-30 hover:dark:bg-opacity-50 h-8 w-full mt-1 flex justify-center items-center rounded-sm"
             disabled={isMutating}
           >
-            send {""}
+            Send {""}
           </button>
-        </div>
+        </>
       )}
     </form>
   );
