@@ -58,7 +58,7 @@ export default async function Page() {
         {entries.map((entry) => (
           <div
             key={entry.id}
-            className="relative border-[1px] border-white border-opacity-30 rounded-sm px-4 py-2 mb-4 bg-white bg-opacity-20"
+            className="relative border-[1px] border-white border-opacity-30 rounded-sm px-4 py-2 mb-4 bg-white bg-opacity-10"
           >
             <div className="flex items-center gap-2 before:rounded-full before:w-2 before:h-2 before:bg-white">
               {entry.description}

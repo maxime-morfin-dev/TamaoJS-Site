@@ -21,11 +21,11 @@ const navigationItems = {
     label: "Ressources",
     x: 132,
     y: 99,
-    w: "69px",
+    w: "100px",
   },
   "/teaching": {
     label: "Teaching",
-    x: 209,
+    x: 240,
     y: 132,
     w: "83px",
   },
