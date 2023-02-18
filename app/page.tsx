@@ -6,7 +6,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import Tags from "@/components/tags";
 import { Play } from "@next/font/google";
-import { GithubIcon, TwitterIcon } from "@/components/icons";
+import { ChatIcon, GithubIcon, TwitterIcon } from "@/components/icons";
 import { useEffect, useState } from "react";
 
 export const metadata = {
@@ -65,21 +65,31 @@ export default function Home() {
             width={150}
             height={150}
             alt="moi"
-            className="w-32 h-32 flex justify-center items-center lg:justify-start my-8 rounded-full dark:grayscale shadow-md shadow-slate-500 dark:shadow-none"
+            className="w-28 h-28 flex justify-center items-center lg:justify-start my-8 rounded-full grayscale "
             priority
+            placeholder="blur"
           />
-          <Tags />
         </div>
       </div>
 
       <h2>React fullstack developer,</h2>
-      <p className="text-md font-semibold">
+      <p className="text-md font-medium">
         Learn , Practice, Master ... Reapeat
         <span className="emoji" role="img" aria-label={"🔁"}>
           {"🔁"}
         </span>
       </p>
-      <div className="w-full lg:max-w-lg opacity-70 h-[1px] dark:bg-slate-100 mt-4 ml-0" />
+      <Link href={"/chat"}>
+        <div className="flex justify-center items-center gap-2 font-paragraph px-3 py-2 w-fit rounded-sm mt-4 bg-sky-400  text-sm text-white hover:text-base translate-x-0 translate-y-0 transition-all duration-100 ease-linear relative">
+          <span className="flex justify-center items-center h-2 w-2 top-0.5 right-0.5 absolute">
+            <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-500 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+          </span>
+          <ChatIcon />
+          <span>Let&apos;s chat</span>
+        </div>
+      </Link>
+      <div className="w-full lg:max-w-lg opacity-70 h-[1px] bg-slate-100 mt-4 ml-0" />
       <p className="font-paragraph text-sm my-8 md:max-w-lg md:text-lg lg:text-base">
         Hi !{" "}
         <span className="emoji" role="img" aria-label={"👋"}>
@@ -87,7 +97,7 @@ export default function Home() {
         </span>
         I am Maxime Morfin, a talented fullstack developer with 5 years of
         experience in the industry.{" "}
-        <span className="font-semibold">
+        <span className=" text-sky-400">
           I am a self-taught expert in React and Next.js
         </span>{" "}
         and have a passion for sharing my knowledge with others.
@@ -101,23 +111,23 @@ export default function Home() {
       </p>
       <div className="flex flex-col justify-center items-start gap-1 mb-8">
         <div className="flex justify-start items-center gap-2 font-paragraph text-sm opacity-70 hover:opacity-100 transition-all duration-300 ease-in-out">
-          <TwitterIcon color={`${isDarkMode ? "white" : "rgb(100 116 139)"}`} />
+          <TwitterIcon />
           <Link
             href={"https://twitter.com/Tamao_ev"}
             className="hover:underline"
             target="_blank"
           >
-            <span>Me suivre sur Twitter</span>
+            <span>Follow me on Twitter</span>
           </Link>
         </div>
-        <div className="flex justify-start items-center gap-2 font-paragraph text-sm opacity-70 hover:opacity-100 transition-all duration-300 ease-in-out">
-          <GithubIcon color={`${isDarkMode ? "white" : "rgb(100 116 139)"}`} />
+        <div className="flex justify-start mb-8 items-center gap-2 font-paragraph text-sm opacity-70 hover:opacity-100 transition-all duration-300 ease-in-out">
+          <GithubIcon />
           <Link
             href={"https://github.com/maxime-morfin-dev"}
             className="hover:underline"
             target="_blank"
           >
-            <span>Mes projets sur Github</span>
+            <span>My projects on Github</span>
           </Link>
         </div>
       </div>

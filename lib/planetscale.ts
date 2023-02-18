@@ -7,6 +7,7 @@ interface Ressources {
   link: string;
   description: string;
   tags: string[];
+  isValideUrl: boolean;
 }
 
 interface Database {

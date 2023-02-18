@@ -1,9 +1,9 @@
 // import "./globals.css";
 import "./output.css";
-import { Montserrat } from "@next/font/google";
+import { Hind_Madurai } from "@next/font/google";
 import Sidebar from "@/components/sidebar";
 
-const montserrat = Montserrat({
+const roboto = Hind_Madurai({
   weight: "400",
   display: "swap",
   subsets: ["latin"],
@@ -25,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={montserrat.className}>
-      <body className="antialiased lg:flex lg:flex-row mx-12 lg:mx-0 text-slate-700 dark:text-white relative">
+    <html lang="en" className={roboto.className}>
+      <body className="antialiased lg:flex lg:flex-row mx-12 lg:mx-0relative">
         <Sidebar />
         <main className="my-10">{children}</main>
       </body>

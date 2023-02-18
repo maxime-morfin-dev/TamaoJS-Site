@@ -14,6 +14,7 @@ export default async function handler(
           link: req.body.link,
           description: req.body.description,
           tags: req.body.tags,
+          isValideUrl: req.body.isValideUrl,
         })
         .execute();
     } catch (error) {

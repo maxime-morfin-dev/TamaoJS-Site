@@ -3,41 +3,44 @@ import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
 import Link from "next/link";
+import { LangIcon, SunIcon } from "./icons";
+import { useState } from "react";
 
 const navigationItems = {
   "/": {
     label: "Home",
-    x: 8,
-    y: 30,
-    w: "60px",
+    x: 9,
+    y: 17,
+    w: "51px",
   },
-  "/blog": {
-    label: "Blog",
-    x: 76,
-    y: 65,
-    w: "50px",
+  "/chat": {
+    label: "Chat",
+    x: 68,
+    y: 50,
+    w: "42px",
   },
   "/ressources": {
     label: "Ressources",
-    x: 132,
-    y: 99,
-    w: "100px",
+    x: 117,
+    y: 85,
+    w: "86px",
   },
   "/shortcuts": {
     label: "Shortcuts",
-    x: 240,
-    y: 132,
-    w: "83px",
+    x: 212,
+    y: 120,
+    w: "76px",
   },
 };
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [isFrench, setIsFrench] = useState(false);
 
   return (
-    <aside className="lg:h-screen lg:w-1/4 lg:flex lg:flex-col lg:justify-start lg:items-center font-paragraph ">
-      <div className="my-10 flex lg:flex-col justify-start lg:justify-center items-center lg:items-start flex-wrap gap-12 lg:gap-7">
-        <div>Logo</div>
+    <aside className="lg:h-screen lg:w-1/4 lg:flex lg:flex-col lg:justify-start lg:items-center font-paragraph relative">
+      <div className="my-10 flex lg:flex-col justify-between lg:justify-center items-center lg:items-start lg:gap-7">
+        <div className="lg:-translate-x-2">Logo</div>
         <nav
           className="flex flex-row md:flex-col items-start fade ml-0"
           id="nav"
@@ -48,7 +51,7 @@ export default function Sidebar() {
                 {/* Desktop version, hidden on mobile, animates y axis */}
                 <div className="hidden lg:block relative ">
                   <motion.div
-                    className="absolute bg-slate-500 dark:bg-neutral-100 bg-opacity-30 dark:bg-opacity-30 h-[2px] left-2 rounded-sm z-[-1]"
+                    className="absolute bg-neutral-100 bg-opacity-30 h-[10px] left-[9px] rounded-sm z-[-1]"
                     layoutId="test2"
                     initial={{ opacity: 0, y: navigationItems[pathname].y }}
                     animate={{
@@ -66,7 +69,7 @@ export default function Sidebar() {
                 {/* Mobile version, hidden on desktop, animates x axis */}
                 <div className="block lg:hidden">
                   <motion.div
-                    className="absolute bg-slate-500 dark:bg-neutral-100 bg-opacity-30 dark:bg-opacity-30 h-[2px] -bottom-0.5 rounded-sm z-[-1]"
+                    className="absolute bg-neutral-100 bg-opacity-30 h-[22px] top-1.5 rounded-sm z-[-1]"
                     layoutId="test"
                     initial={{ opacity: 0, x: navigationItems[pathname].x }}
                     animate={{
@@ -92,10 +95,10 @@ export default function Sidebar() {
                   key={path}
                   href={path}
                   className={clsx(
-                    "transition-all hover:text-neutral-800 dark:hover:text-neutral-200 py-[5px] px-[5px]",
+                    "transition-all hover:text-neutral-200 py-[5px] px-[5px]",
                     {
                       "text-neutral-500": !isActive,
-                      "font-semibold": isActive,
+                      "font-medium": isActive,
                     }
                   )}
                 >
@@ -105,6 +108,15 @@ export default function Sidebar() {
             })}
           </div>
         </nav>
+        <div>
+          <div
+            className="bg-white text-xs bg-opacity-10 px-2 py-1 rounded-sm cursor-pointer relative flex gap-2 lg:-translate-x-2"
+            onClick={() => setIsFrench(!isFrench)}
+          >
+            <LangIcon />
+            {isFrench ? "EN" : "FR"}
+          </div>
+        </div>
       </div>
     </aside>
   );
