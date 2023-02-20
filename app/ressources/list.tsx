@@ -105,7 +105,7 @@ export default function List({ entries }) {
               key={index}
               className={`px-4 rounded-sm  transition-all duration-300 ease-in-out hover:cursor-pointer text-sm font-medium ${
                 filterTagState.includes(item)
-                  ? " bg-sky-400 text-white"
+                  ? " bg-white bg-opacity-30 text-white"
                   : "  bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800"
               }`}
               onClick={() => {
@@ -134,48 +134,50 @@ export default function List({ entries }) {
             : true
         )
         .map((entry) => (
-          <div
+          <Link
+            href={entry.link}
+            target="_blank"
             key={entry.id}
-            className={clsx(
-              "relative border-[1px] border-white border-opacity-30 rounded-sm px-4 py-2 my-4 bg-white bg-opacity-10",
-              {
-                "opacity-50 cursor-not-allowed": !entry.isValideUrl,
+            //desable click if entry.isValideUrl is false
+            onClick={(e) => {
+              if (!entry.isValideUrl) {
+                e.preventDefault();
               }
-            )}
+            }}
           >
-            <CheckRessource entry={entry} isValideUrl={entry.isValideUrl} />
-            <div className="flex items-center  before:rounded-full ">
-              {entry.description}
-            </div>
-            <div className="mt-2">
-              {entry.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-block bg-white bg-opacity-10 rounded-sm px-2 py-1 text-xs mr-2 mb-2"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <Link
-              href={entry.link}
-              target="_blank"
-              className={clsx("underline text-sm italic text-sky-400", {
-                "pointer-events-none": !entry.isValideUrl,
-              })}
+            <div
+              className={clsx(
+                "relative border-[1px] border-white border-opacity-30 rounded-sm px-4 py-2 my-4 bg-white bg-opacity-10",
+                {
+                  "opacity-50 cursor-not-allowed": !entry.isValideUrl,
+                }
+              )}
             >
-              {entry.link.length > 50
-                ? entry.link.substring(0, 50) + "..."
-                : entry.link}
-            </Link>
-            {!entry.isValideUrl && (
-              <>
-                <div className="text-[.7em] mt-2 italic bg-red-500 bg-opacity-50 w-fit px-2 py-1 animate-pulse">
-                  Awaiting verification ...{" "}
+              <CheckRessource entry={entry} isValideUrl={entry.isValideUrl} />
+              <div className="flex justify-between items-center">
+                <div className="flex items-center  before:rounded-full ">
+                  {entry.description.length > 50
+                    ? entry.description.substring(0, 50) + "..."
+                    : entry.description}
                 </div>
-              </>
-            )}
-          </div>
+                {!entry.isValideUrl && (
+                  <div className="text-[.7em] mt-2 italic bg-green-500 bg-opacity-50 w-fit px-2 py-1 animate-pulse">
+                    Awaiting verification ...{" "}
+                  </div>
+                )}
+              </div>
+              <div className="mt-2">
+                {entry.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-block bg-white bg-opacity-10 rounded-sm px-2 py-1 text-xs mr-2 mb-2"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Link>
         ))}
     </div>
   );

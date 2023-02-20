@@ -73,14 +73,9 @@ export default function Home() {
       </div>
 
       <h2>React fullstack developer,</h2>
-      <p className="text-md font-medium">
-        Learn , Practice, Master ... Reapeat
-        <span className="emoji" role="img" aria-label={"🔁"}>
-          {"🔁"}
-        </span>
-      </p>
+
       <Link href={"/chat"}>
-        <div className="flex justify-center items-center gap-2 font-paragraph px-3 py-2 w-fit rounded-sm mt-4 bg-sky-400  text-sm text-white hover:text-base translate-x-0 translate-y-0 transition-all duration-100 ease-linear relative">
+        <div className="flex justify-center items-center gap-2 font-paragraph px-3 py-2 w-fit rounded-sm mt-4 bg-teal-700 text-sm text-white hover:text-base translate-x-0 translate-y-0 transition-all duration-100 ease-linear relative">
           <span className="flex justify-center items-center h-2 w-2 top-0.5 right-0.5 absolute">
             <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-500 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
@@ -90,6 +85,9 @@ export default function Home() {
         </div>
       </Link>
       <div className="w-full lg:max-w-lg opacity-70 h-[1px] bg-slate-100 mt-4 ml-0" />
+      <h2 className="font-medium flex justify-start items-center gap-2 text-lg mt-4">
+        Learn , Practice, Master ... Repeat
+      </h2>
       <p className="font-paragraph text-sm my-8 md:max-w-lg md:text-lg lg:text-base">
         Hi !{" "}
         <span className="emoji" role="img" aria-label={"👋"}>
@@ -97,9 +95,7 @@ export default function Home() {
         </span>
         I am Maxime Morfin, a talented fullstack developer with 5 years of
         experience in the industry.{" "}
-        <span className=" text-sky-400">
-          I am a self-taught expert in React and Next.js
-        </span>{" "}
+        <span className="">I am a self-taught expert in React and Next.js</span>{" "}
         and have a passion for sharing my knowledge with others.
       </p>
       <p className="font-paragraph text-sm my-8 md:max-w-lg md:text-lg lg:text-base">

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
 import Link from "next/link";
-import { LangIcon, SunIcon } from "./icons";
+import { LangIcon, MoonIcon, SunIcon } from "./icons";
 import { useState } from "react";
 
 const navigationItems = {
@@ -35,7 +35,7 @@ const navigationItems = {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const [isFrench, setIsFrench] = useState(false);
+  const [isLight, setIsLight] = useState(false);
 
   return (
     <aside className="lg:h-screen lg:w-1/4 lg:flex lg:flex-col lg:justify-start lg:items-center font-paragraph relative">
@@ -110,11 +110,10 @@ export default function Sidebar() {
         </nav>
         <div>
           <div
-            className="bg-white text-xs bg-opacity-10 px-2 py-1 rounded-sm cursor-pointer relative flex gap-2 lg:-translate-x-2"
-            onClick={() => setIsFrench(!isFrench)}
+            className="bg-white text-xs bg-opacity-10 p-2 rounded-sm cursor-pointer relative flex gap-2 lg:-translate-x-2"
+            onClick={() => setIsLight(!isLight)}
           >
-            <LangIcon />
-            {isFrench ? "EN" : "FR"}
+            {!isLight ? <SunIcon /> : <MoonIcon />}
           </div>
         </div>
       </div>

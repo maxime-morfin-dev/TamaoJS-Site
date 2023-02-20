@@ -41,13 +41,15 @@ export default function CheckRessource({ entry, isValideUrl }) {
       {isValideUrl ? (
         <div
           className={clsx(
-            "w-3 h-3 absolute top-2 right-2 border-[1px] border-white border-opacity-30 rounded-full cursor-pointer",
+            "w-3 h-3 z-30 absolute top-2 right-2 border-[1px] border-white border-opacity-30 rounded-full cursor-pointer",
             {
               "bg-green-500": isCheck,
             }
           )}
-          //add to an array in cookie
-          onClick={handleCookies}
+          onClick={(e) => {
+            e.preventDefault();
+            handleCookies();
+          }}
         />
       ) : null}
     </>

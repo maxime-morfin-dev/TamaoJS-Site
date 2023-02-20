@@ -10,7 +10,7 @@
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 26, 32, 44;
+  --background-end: #121212;
 
   --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
   --secondary-glow: linear-gradient(
@@ -52,7 +52,7 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-end-rgb));
+  background: var(--background-end);
   height: 100vh;
 }
 
